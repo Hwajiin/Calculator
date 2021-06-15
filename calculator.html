@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+  </head>
+  <body>
+    <form class="board">
+      <input type="text" readonly />
+    </form>
+    <section class="btn-box">
+      <button data-value="+">+</button>
+      <button data-value="-">-</button>
+      <button data-value="*">*</button>
+      <button data-value="/">/</button>
+      <button data-value="%">%</button>
+      <button data-value=".">.</button>
+      <button data-value="1">1</button>
+      <button data-value="2">2</button>
+      <button data-value="3">3</button>
+      <button data-value="4">4</button>
+      <button data-value="5">5</button>
+      <button data-value="6">6</button>
+      <button data-value="7">7</button>
+      <button data-value="8">8</button>
+      <button data-value="9">9</button>
+    </section>
+
+    <section class="opearator-box">
+      <button class="result">=</button>
+      <button class="allClear">AC</button>
+      <button class="clear">C</button>
+    </section>
+
+    <script>
+      class Calculator {
+        constructor() {
+          this.btns = document.querySelector(".btn-box");
+          this.input = document.querySelector(".board input");
+          this.resultBtn = document.querySelector(".result");
+          this.clearBtn = document.querySelector(".clear");
+          this.allClearBtn = document.querySelector(".allClear");
+          this.setEventListeners();
+        }
+
+        setEventListeners = () => {
+          this.btns.addEventListener("click", this.paintText);
+          this.resultBtn.addEventListener("click", this.printResult);
+          this.clearBtn.addEventListener("click", this.clear);
+          this.allClearBtn.addEventListener("click", this.allClear);
+        };
+
+        paintText = (e) => {
+          const value = e.target.dataset.value;
+          if (value) {
+            this.input.value += value;
+          }
+        };
+
+        allClear = () => {
+          this.input.value = "";
+        };
+
+        clear = () => {
+          // length의 마지막을 삭제해주면 되려나?
+          const exp = this.input.value;
+          this.input.value = exp.slice(0, exp.length - 1);
+        };
+
+        printResult = () => {
+          // const result = eval(this.input.value).toFixed(3);
+          // this.input.value = result;
+          const result = Math.floor(eval(this.input.value) * 1000) / 1000;
+          this.input.value = result;
+        };
+      }
+
+      new Calculator();
+    </script>
+  </body>
+</html>
